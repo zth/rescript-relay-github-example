@@ -1,3 +1,5 @@
+external githubToken: string = "import.meta.env.VITE_GITHUB_ACCESS_TOKEN"
+
 let fetchQuery: RescriptRelay.Network.fetchFunctionPromise = async (
   operation,
   variables,
@@ -7,22 +9,24 @@ let fetchQuery: RescriptRelay.Network.fetchFunctionPromise = async (
   open Fetch
 
   let res = await fetch(
-    "http://localhost:4000/graphql",
+    "https://api.github.com/graphql",
     {
       method: #POST,
-      headers: Headers.fromArray([("content-type", "application/json")]),
+      headers: Headers.fromArray([
+        ("content-type", "application/json"),
+        ("authorization", `bearer ${githubToken}`),
+      ]),
       body: Body.string(
         {"query": operation.text, "variables": variables}
         ->JSON.stringifyAny
-        ->Option.getOr(""),
+        ->Option.getExn,
       ),
-      credentials: #"same-origin",
     },
   )
 
   if res->Response.ok {
     await res->Response.json
   } else {
-    Exn.raiseError("API error.")
+    panic("Could not make GraphQL request.")
   }
 }

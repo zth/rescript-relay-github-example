@@ -17,3 +17,5 @@ stats.html
 # Ignore generated files but allow keeping the folder itself.
 src/__generated__/**
 !src/__generated__/.gitkeep
+
+.env

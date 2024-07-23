@@ -16,7 +16,7 @@
     "dev:vite": "vite",
     "dev:relay": "rescript-relay-compiler --watch",
     "dev:rescript": "rescript build -w",
-    "schema": "npx -y get-graphql-schema http://localhost:4000/graphql > schema.graphql",
+    "schema": "export $(cat .env | xargs) && npx -y get-graphql-schema -h \"Authorization=bearer $VITE_GITHUB_ACCESS_TOKEN\" https://api.github.com/graphql > schema.graphql",
     "setup": "npm run build:relay && npm run router:generate && npm run build:rescript",
     "postinstall": "npm run setup"
   },

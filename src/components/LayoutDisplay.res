@@ -1,7 +1,8 @@
 module QueryFragment = %relay(`
   fragment LayoutDisplay_query on Query {
-    siteStatistics {
-      currentVisitorsOnline
+    viewer {
+      name
+      login
     }
   }
 `)
@@ -11,8 +12,14 @@ let make = (~query, ~children) => {
   let query = QueryFragment.use(query)
 
   <>
-    <div className="my-4">
-      {React.string(query.siteStatistics.currentVisitorsOnline->Int.toString)}
+    <div>
+      {switch query.viewer {
+      | {name: Some(name), login} =>
+        <div className="flex flex-row space-x-1">
+          {React.string("Logged in user: " ++ name ++ " (" ++ login ++ ")")}
+        </div>
+      | _ => React.null
+      }}
     </div>
     <div> {children} </div>
   </>

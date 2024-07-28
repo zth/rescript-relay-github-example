@@ -59,26 +59,6 @@ let useIsRouteActive = (~exact=false) => {
   let location = RelayRouter.Utils.useLocation()
   React.useMemo(() => location->isRouteActive(~exact), (location, exact))
 }
-@live
-type subRoute = [#Dashboard]
-
-@live
-let getActiveSubRoute = (location: RelayRouter.History.location): option<[#Dashboard]> => {
-  let {pathname} = location
-  if RelayRouter.Internal.matchPath("/", pathname)->Belt.Option.isSome {
-      Some(#Dashboard)
-    } else {
-    None
-  }
-}
-
-@live
-let useActiveSubRoute = (): option<[#Dashboard]> => {
-  let location = RelayRouter.Utils.useLocation()
-  React.useMemo(() => {
-    getActiveSubRoute(location)
-  }, [location])
-}
 
 
 

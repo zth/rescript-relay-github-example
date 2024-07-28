@@ -2,6 +2,16 @@
   {
     "path": "/",
     "name": "Root",
+    "children": [
+      {
+        "path": "",
+        "name": "Dashboard"
+      }
+    ]
+  },
+  {
+    "path": "*",
+    "name": "FourOhFour",
     "children": []
   }
 ]

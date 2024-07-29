@@ -1,8 +1,11 @@
+module Dashboard = %relay.deferredComponent(Dashboard.make)
+
 let renderer = Routes.Root.Dashboard.Route.makeRenderer(
-  ~prepare=_ => {
-    ()
+  ~prepareCode=_ => [Dashboard.preload()],
+  ~prepare=({environment}) => {
+    DashboardQuery_graphql.load(~environment, ~variables=(), ~fetchPolicy=StoreOrNetwork)
   },
-  ~render=_ => {
-    <Dashboard />
+  ~render=({prepared}) => {
+    <Dashboard queryRef=prepared />
   },
 )

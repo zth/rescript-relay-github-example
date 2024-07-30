@@ -28,7 +28,7 @@ let make = (~user) => {
           key=f.id
           to_={Routes.Root.UserProfile.Route.makeLink(~userId=f.id)}
           preloadData={NoPreloading}>
-          <UserAvatar className="size-12 border-2 border-white" user=f.fragmentRefs />
+          <UserAvatar className="size-12 border-2 border-white bg-orange-200" user=f.fragmentRefs />
         </RelayRouter.Link>
       )
       ->React.array}

@@ -71,7 +71,7 @@ module LoadingBar = {
     <div className="pointer-events-none w-full h-1 relative overflow-hidden">
       <div
         className={U.tw([
-          "absolute top-0 left-0, bottom-0 w-full rounded-full bg-blue-500 transition-all duration-200",
+          "absolute top-0 left-0, bottom-0 w-full rounded-full bg-orange-500 transition-all duration-200",
           switch (render, progress) {
           | (false, _)
           | (true, 0.) => ""

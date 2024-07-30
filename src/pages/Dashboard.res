@@ -1,10 +1,11 @@
 module Query = %relay(`
   query DashboardQuery {
     viewer {
-      name
-      login
-      bio
-      createdAt
+      ...UserAvatar_user
+      ...UserTitle_user
+      ...UserBio_user
+      ...UserBadges_user
+      ...UserFollowersWidget_user
     }
   }
 `)
@@ -13,31 +14,17 @@ module Query = %relay(`
 let make = (~queryRef) => {
   let data = Query.usePreloaded(~queryRef)
 
-  let createdAt = data.viewer.createdAt
-
   <div className="w-full h-full flex flex-col items-center justify-center rounded-lg bg-white">
     <div className="text-center flex flex-col space-y-4 max-w-md">
       <div>
-        <Avatar className="size-24 bg-orange-200" initials="GN" />
+        <UserAvatar className="size-24" user=data.viewer.fragmentRefs />
       </div>
       <div>
-        <h1 className="text-xl font-semibold">
-          {React.string(data.viewer.name->Option.getOr("-"))}
-        </h1>
-        <div className="text-gray-600"> {React.string(data.viewer.login)} </div>
-        <div>
-          <Badge color={Orange}>
-            {React.string(`since ${createdAt->Date.getFullYear->Int.toString}`)}
-          </Badge>
-        </div>
+        <UserTitle user=data.viewer.fragmentRefs />
+        <UserBadges user=data.viewer.fragmentRefs />
       </div>
-      {switch data.viewer.bio {
-      | None => React.null
-      | Some(bio) =>
-        <div>
-          <div> {React.string(bio)} </div>
-        </div>
-      }}
+      <UserBio user=data.viewer.fragmentRefs />
+      <UserFollowersWidget user=data.viewer.fragmentRefs />
     </div>
   </div>
 }

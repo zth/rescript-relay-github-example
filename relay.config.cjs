@@ -4,5 +4,6 @@ module.exports = {
   artifactDirectory: "./src/__generated__",
   customScalarTypes: {
     DateTime: "DateTime",
+    URI: "string",
   },
 };

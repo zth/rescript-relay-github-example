@@ -6,6 +6,10 @@
       {
         "path": "",
         "name": "Dashboard"
+      },
+      {
+        "path": "profile/:userId",
+        "name": "UserProfile"
       }
     ]
   },

@@ -8,6 +8,10 @@ module Root = {
     module Route = Route__Root__Dashboard_route
 
   }
+  module UserProfile = {
+    module Route = Route__Root__UserProfile_route
+
+  }
 }
 module FourOhFour = {
   module Route = Route__FourOhFour_route
